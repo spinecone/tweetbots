@@ -10,7 +10,7 @@ class TweetGenerator
     "Dear Sir/Madam: We are notifying you of proprietary rights for the famous trademark \"#{SIGIL}\". Please remove it from this Online Location.",
     "Dear Sir/Madam: Be advised that our organization is the owner of the well-known trademark and trade name \"#{SIGIL}\".",
     "Dear Sir/Madam: Please remove trademark \"#{SIGIL}\" from this Online Location. Be assured that we will monitor you to verify compliance.",
-    "Dear Sir/Madam: Please remove uses of \"#{SIGIL}\" or we will be forced to defer this issue to our \"#{SIGIL}\" Lawyer.", 
+    "Dear Sir/Madam: Please remove uses of \"#{SIGIL}\" or we will be forced to defer this issue to our \"#{SIGIL}\" Lawyer.",
     "Dear Sir/Madam: We demand that you remove all uses of \"#{SIGIL}\" no later than within three days of your receipt of this letter.",
     "Dear Sir/Madam: Use of \"#{SIGIL}\" infringes on personal rights in violation of the \"#{SIGIL}\" Personal Rights Protection Act of 1984.",
     "Dear Sir/Madam: We are entitled to recover from you the damages suffered as a result of your use of \"#{SIGIL}\".",
