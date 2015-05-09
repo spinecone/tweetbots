@@ -17,7 +17,7 @@ class TweetGenerator
     "Dear Sir/Madam: You have created a likelihood of confusion with the \"#{SIGIL}\" trademark by using \"#{SIGIL}\".",
     "Dear Sir/Madam: For the avoidance of doubt, this infringing 'tweet' exploits the name/trademark \"#{SIGIL}\".",
     "Dear Sir/Madam: This infringing 'tweet' is NOT authorized by, affiliated with or otherwise endorsed by THE ESTATE OF \"#{SIGIL}\".",
-    "Dear Sir/Madam: The above use of \"#{SIGIL}\" may (or may not ­as applicable) constitute criminal infractions or money laundering.",
+    "Dear Sir/Madam: The above use of \"#{SIGIL}\" may (or may not as applicable) constitute criminal infractions or money laundering.",
     "Dear Sir/Madam: I am the Associate IP Coordinator for \"#{SIGIL}\" and I am authorized to act on behalf of its owners."
   ]
   MIN_TRADEMARK_LENGTH = 5
@@ -45,7 +45,7 @@ private
   end
 
   def strip_inner_punctuation(grams)
-    grams.reject {|x| /[a-zA-Z ]+[?.!;,][a-zA-Z ]+/.match(x) }
+    grams.reject { |x| /[a-zA-Z ]+[?.!;,][a-zA-Z ]+/.match(x) }
   end
 
   def strip_special_chars(grams)
@@ -55,7 +55,7 @@ private
   def split_and_strip(str, gram_length)
     strip_special_chars(
       strip_inner_punctuation(
-        str.split.each_cons(gram_length).map {|s| s.join(' ') }
+        str.split.each_cons(gram_length).map { |s| s.join(' ') }
       )
     )
   end
