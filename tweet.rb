@@ -35,7 +35,12 @@ private
       "#{@username} For the avoidance of doubt, this infringing 'tweet' exploits the name/trademark \"#{SIGIL}\".",
       "#{@username} This infringing 'tweet' is NOT authorized by, affiliated with or otherwise endorsed by THE ESTATE OF \"#{SIGIL}\".",
       "#{@username} The above use of \"#{SIGIL}\" may (or may not as applicable) constitute criminal infractions or money laundering.",
-      "#{@username} I am the Associate IP Coordinator for \"#{SIGIL}\" and I am authorized to act on behalf of its owners."
+      "#{@username} I am the Associate IP Coordinator for \"#{SIGIL}\" and I am authorized to act on behalf of its owners.",
+      "#{@username} \"#{SIGIL}\" Inc. publishes and owns property rights in the famous \"#{SIGIL}\" Family of Trademarks.",
+      "#{@username} The famous \"#{SIGIL}\" Family of Trademarks are strongly identified by consumers with our reputation for quality.",
+      "#{@username} By using \"#{SIGIL}\", you are likely to dilute and cause confusion with our Family of Trademarks.",
+      "#{@username} Your use of \"#{SIGIL}\" is likely to impair the distinctiveness of the \"#{SIGIL}\" Inc. Family of Trademarks.",
+      "#{@username} We have the good faith belief that your use of \"#{SIGIL}\" is not authorized by \"#{SIGIL}\" Inc."
   ]
   end
 
