@@ -23,7 +23,7 @@ class TweetGenerator
   MIN_TRADEMARK_LENGTH = 5
 
   def initialize(text)
-    @source_text = text
+    @source_text = strip_usernames_and_hashtags(text)
   end
 
   def generate_tweet
@@ -34,6 +34,7 @@ class TweetGenerator
   end
 
 private
+
   def get_trademark(max_length)
     singles = split_and_strip(@source_text, 1)
     pairs = split_and_strip(@source_text, 2)
@@ -49,7 +50,11 @@ private
   end
 
   def strip_special_chars(grams)
-    grams.map { |x| x.gsub(/[\.;:?!,]$/, '').gsub(/^[@#]/, '') }
+    grams.map { |x| x.gsub(/[\.;:?!,]$/, '')
+  end
+
+  def strip_usernames_and_hashtags(text)
+    text.split.reject { |s| s.start_with?('@', '#') }.join(' ')
   end
 
   def split_and_strip(str, gram_length)
