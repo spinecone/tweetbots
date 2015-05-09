@@ -10,7 +10,7 @@ class TweetGenerator
     "Dear Sir/Madam: We are notifying you of proprietary rights for the famous trademark \"#{SIGIL}\". Please remove it from this Online Location.",
     "Dear Sir/Madam: Be advised that our organization is the owner of the well-known trademark and trade name \"#{SIGIL}\".",
     "Dear Sir/Madam: Please remove trademark \"#{SIGIL}\" from this Online Location. Be assured that we will monitor you to verify compliance.",
-    "Dear Sir/Madam: Please remove uses of \"#{SIGIL}\" or we will be forced to defer this issue to our \"#{SIGIL}\" Lawyer.", 
+    "Dear Sir/Madam: Please remove uses of \"#{SIGIL}\" or we will be forced to defer this issue to our \"#{SIGIL}\" Lawyer.",
     "Dear Sir/Madam: We demand that you remove all uses of \"#{SIGIL}\" no later than within three days of your receipt of this letter.",
     "Dear Sir/Madam: Use of \"#{SIGIL}\" infringes on personal rights in violation of the \"#{SIGIL}\" Personal Rights Protection Act of 1984.",
     "Dear Sir/Madam: We are entitled to recover from you the damages suffered as a result of your use of \"#{SIGIL}\".",
@@ -33,14 +33,31 @@ class TweetGenerator
     LEGAL_PHRASES.sample.gsub(SIGIL, get_trademark(max_length))
   end
 
+private
   def get_trademark(max_length)
-    # get list of single words and pairs of words
-    singles = @source_text.split
-    pairs = @source_text.split.each_cons(2).to_a.map { |p| p.join(' ') }
-    triples = @source_text.split.each_cons(3).to_a.map { |p| p.join(' ') }
+    singles = split_and_strip(@source_text, 1)
+    pairs = split_and_strip(@source_text, 2)
+    triples = split_and_strip(@source_text, 3)
     combos = singles + pairs + triples
     combos.select do |w|
       (w.length >= MIN_TRADEMARK_LENGTH) && (w.length <= max_length)
     end.max { |a, b| a.length <=> b.length }
   end
+
+  def strip_inner_punctuation(grams)
+    grams.reject {|x| /[a-zA-Z ]+[?.!;,][a-zA-Z ]+/.match(x) }
+  end
+
+  def strip_special_chars(grams)
+    grams.map { |x| x.gsub(/[\.;:?!,]$/, '').gsub(/^[@#]/, '') }
+  end
+
+  def split_and_strip(str, gram_length)
+    strip_special_chars(
+      strip_inner_punctuation(
+        str.split.each_cons(gram_length).map {|s| s.join(' ') }
+      )
+    )
+  end
+
 end
