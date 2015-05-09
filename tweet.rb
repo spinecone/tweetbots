@@ -33,14 +33,31 @@ class TweetGenerator
     LEGAL_PHRASES.sample.gsub(SIGIL, get_trademark(max_length))
   end
 
+private
   def get_trademark(max_length)
-    # get list of single words and pairs of words
-    singles = @source_text.split
-    pairs = @source_text.split.each_cons(2).to_a.map { |p| p.join(' ') }
-    triples = @source_text.split.each_cons(3).to_a.map { |p| p.join(' ') }
+    singles = split_and_strip(@source_text, 1)
+    pairs = split_and_strip(@source_text, 2)
+    triples = split_and_strip(@source_text, 3)
     combos = singles + pairs + triples
     combos.select do |w|
       (w.length >= MIN_TRADEMARK_LENGTH) && (w.length <= max_length)
     end.max { |a, b| a.length <=> b.length }
   end
+
+  def strip_inner_punctuation(grams)
+    grams.reject {|x| /[a-zA-Z ]+[?.!;,][a-zA-Z ]+/.match(x) }
+  end
+
+  def strip_special_chars(grams)
+    grams.map { |x| x.gsub(/[\.;:?!,]$/, '').gsub(/^[@#]/, '') }
+  end
+
+  def split_and_strip(str, gram_length)
+    strip_special_chars(
+      strip_inner_punctuation(
+        str.split.each_cons(gram_length).map {|s| s.join(' ') }
+      )
+    )
+  end
+
 end
