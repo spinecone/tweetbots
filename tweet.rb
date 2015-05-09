@@ -4,7 +4,7 @@ class TweetGenerator
 
   def initialize(text, username)
     @source_text = strip_usernames_and_hashtags(text)
-    @username = username
+    @username = "@#{username}"
   end
 
   def generate_tweet
