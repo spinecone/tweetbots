@@ -63,7 +63,7 @@ private
   end
 
   def strip_usernames_and_hashtags(text)
-    text.split.reject { |s| s.start_with?('@', '#') }.join(' ')
+    text.split.reject { |s| s.start_with?('@', '#', '.@') }.join(' ')
   end
 
   def split_and_strip(str, gram_length)
