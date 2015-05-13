@@ -1,23 +1,43 @@
-require 'logger'
 require 'chatterbot'
 require './tweet.rb'
 require './ceasedesistbot.rb'
+require './botlogger.rb'
+
+def valid_tweet?(bot_username, tweet)
+  !(tweet.retweet? || bot_username == tweet.user.screen_name)
+end
 
 bot = Ceasedesistbot.new
-log = Logger.new("/tmp/#{bot.botname}.log")
-log.level = Logger::DEBUG
+logger = BotLogger.new(bot.botname)
+debug = bot.config[:debug]
 
-log.debug "Starting bot"
+logger.debug "Starting bot"
 
-bot.home_timeline do |original_tweet|
-  log.debug "Trying to generate based on tweet id #{original_tweet.id}"
-  new_tweet_username = original_tweet.user.screen_name
-  new_tweet_text = TweetGenerator.new(original_tweet.text, new_tweet_username).generate_tweet
+bot.home_timeline do |source_tweet|
+  logger.tweet_attempt(source_tweet)
 
-  bot.config[:since_id] = original_tweet.id
-  unless new_tweet_text.nil? || original_tweet.retweet? || new_tweet_username == bot.botname
-    log.debug "Got a result: #{new_tweet_text}. Replying."
-    bot.reply new_tweet_text, original_tweet
+  unless valid_tweet?(bot.botname, source_tweet)
+    logger.debug "Tweet invalid: #{source_tweet.id}"
     break
   end
+
+  source_text = source_tweet.text
+  source_username = source_tweet.user.screen_name
+
+  new_tweet_text = TweetGenerator.new(source_text, source_username).generate_tweet
+
+  unless new_tweet_text.nil?
+    logger.debug "Got a result: #{new_tweet_text}. Replying."
+
+    unless debug
+      bot.reply new_tweet_text, source_tweet
+    end
+
+    break
+  end
+
+  logger.debug "No text generated from #{tweet.id}, moving on"
+
 end
+
+logger.done
