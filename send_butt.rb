@@ -2,9 +2,9 @@ require 'chatterbot'
 require './butt_publisher.rb'
 require './how2butt.rb'
 
-bot = How2butt.new
-log = Logger.new("/tmp/#{bot.botname}.log")
+publisher = ButtPublisher.new
+log = Logger.new('/tmp/how2butt.log')
 log.level = Logger::DEBUG
 
 log.debug 'Starting bot'
-bot.publish_tweet
+publisher.publish_tweet
