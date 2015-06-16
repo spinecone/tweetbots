@@ -1,6 +1,6 @@
 require 'logger'
 require 'chatterbot'
-require './tweet.rb'
+require './cease_desist_generator.rb'
 require './ceasedesistbot.rb'
 
 bot = Ceasedesistbot.new

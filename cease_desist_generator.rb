@@ -1,4 +1,4 @@
-class TweetGenerator
+class CeaseDesistGenerator
   SIGIL = '###'
   MIN_TRADEMARK_LENGTH = 5
 
@@ -73,5 +73,4 @@ private
       )
     )
   end
-
 end
