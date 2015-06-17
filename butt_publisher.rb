@@ -36,6 +36,7 @@ class ButtPublisher
   def image_file(title)
     article = connection.get("http://www.wikihow.com/#{title.gsub(' ', '-')}")
     image_url = article.body.match(/<meta name="twitter:image:src" content="(.+?)"/)[1]
+    return nil if image_url == 'http://www.wikihow.com/skins/WikiHow/images/wikihow_large.jpg'
     image = connection.get(image_url)
 
     file = Tempfile.new('image.jpg')
@@ -46,7 +47,12 @@ class ButtPublisher
   def publish_tweet
     original_title = find_title
     title = improve_title(original_title)
-    bot.client.update_with_media(title, image_file(original_title).open)
+    file = image_file(original_title)
+    if file
+      bot.client.update_with_media(title, file.open)
+    else
+      publish_tweet
+    end
   end
 
   def connection
