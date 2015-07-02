@@ -23,10 +23,10 @@ class ButtPublisher
     tagged_words = tagger.add_tags(title).split(' ').shuffle
     if word = tagged_words.shuffle.find { |w| w.start_with?('<nn>', '<nnp>') }
       title.gsub!(word[/>(.*?)</, 1], 'Butt')
-      title.gsub(' an Butt', ' a Butt')
+      title.gsub!(' an Butt', ' a Butt')
     elsif word = tagged_words.shuffle.find { |w| w.start_with?('<nns>', '<nnps>') }
       title.gsub!(word[/>(.*?)</, 1], 'Butts')
-      title.gsub(' an Butt', ' a Butt')
+      title.gsub!(' an Butt', ' a Butt')
     else
       return improve_title(original_title)
     end
