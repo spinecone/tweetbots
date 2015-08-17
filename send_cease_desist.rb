@@ -9,6 +9,10 @@ log.level = Logger::DEBUG
 
 log.debug "Starting bot"
 
+log.debug "Syncing following"
+bot.sync_following!
+log.debug "Done syncing"
+
 bot.home_timeline do |original_tweet|
   log.debug "Trying to generate based on tweet id #{original_tweet.id}"
   new_tweet_username = original_tweet.user.screen_name
